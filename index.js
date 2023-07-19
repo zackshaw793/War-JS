@@ -8,8 +8,8 @@ class Deck {
         const suits = ['Clubs','Diamonds','Hearts','Spades'];
         const values = ['A','2','3','4','5','6','7','8','9','10','J','Q','K']
 
-        for (let suit in suits) {
-            for (let value in values) { 
+        for (let suit of suits) {
+            for (let value of values) { 
                 this.deck.push(new Card(value,suit));
             }
         }
@@ -93,14 +93,14 @@ class War {
         console.log(`${this.player2.name} plays: ${card2}.`);
 
         if (card1.value === card2.value) { 
-            console.log(`Its a tie!`);
+            console.log(`Its a tie, no cards awarded.`);
         } else if (card1.value > card2.value) { 
-            console.log(`${this.player1.name} wins, awarded one point!`);
+            console.log(`${this.player1.name} wins, awarded one card!`);
             this.player1.addToDeck(card1);
             this.player1.addToDeck(card2);
             this.player1.addPoint();
         } else if (card1 < card2) { 
-            console.log(`${this.player2.name} wins, awarded one point!`);
+            console.log(`${this.player2.name} wins, awarded one card!`);
             this.player2.addToDeck(card1);
             this.player2.addToDeck(card2);
             this.player2.addPoint();
@@ -111,15 +111,24 @@ class War {
         } else if (this.player2.deck.length === 0) { 
             this.winner = this.player1;
         }
+
+        if (this.player1.points > this.player2.points && this.player1.points === 52) { 
+            this.winner = this.player1;
+        } else if (this.player1.points < this.player2.points && this.player2.points === 52) { 
+            this.winner = this.player2;
+        }
+            
+        
     }
     playGame() { 
         this.dealCards();
 
-        do { 
+        while (!this.winner) { 
             this.playRound();
-        } while (!this.winner);
+        }
+        
 
-        console.log(`The winner is ${this.winner.name}, with ${this.winner.points} points!`)
+        console.log(`The winner is ${this.winner.name}, with ${this.winner.points} cards!`)
     }
 } 
 
