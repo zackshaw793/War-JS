@@ -1,5 +1,5 @@
 
-// With the object deck we create a deck of 52 cards and concatenate them in accordance of each card.
+    // With the object deck we create a deck of 52 cards and concatenate them in accordance of each card.
 
 class Deck { 
     constructor() {
@@ -16,9 +16,9 @@ class Deck {
     }
 
 
-/*We shuffle the deck using the Fischer - Yates shuffle. the draw card takes a card off of the end of the shuffled deck.
-isEmpty represents the state of the deck before cards are dealt or played. 
-*/
+    /*We shuffle the deck using the Fischer - Yates shuffle. the draw card takes a card off of the end of the shuffled deck.
+    isEmpty represents the state of the deck before cards are dealt or played. 
+    */
 
 shuffle() { 
     for (let i = this.deck.length - 1; i > 0; i--) {
@@ -37,7 +37,7 @@ isEmpty() {
     }
 }
 
-// Set the card class with two parameters, value and suit. the toString function will return the value and suit as a string.
+    // Set the card class with two parameters, value and suit. the toString function will return the value and suit as a string.
 
 class Card { 
     constructor(value,suit) {
@@ -49,7 +49,7 @@ class Card {
     }
 }
 
-// The player class contains the name of the player and pushes a card to each players deck and as well as adds a point.
+    // The player class contains the name of the player and pushes a card to each players deck and as well as adds a point.
 
 class Player { 
     constructor(name) { 
@@ -66,6 +66,15 @@ class Player {
         this.points++
     }
 }
+
+    /* The war class sets up the game itself, pushing a new instance of deck and assigning two players while the winner is null.
+
+    ---Cards are dealt and shuffled
+
+    ---While the deck is not at 0, each player draws a card.
+
+    */
+
 
 class War { 
     constructor() { 
@@ -85,6 +94,17 @@ class War {
         }
     }
 
+    /* playRound contains the game logic. First cards are assigned to each player using the .shift() method which removes the first 
+    element of an array and returns the value. 
+
+    --- Each player draws a card. If the cards are equal no one recieves a point. If player1's card is greater they recieve a point, etc...
+    Whoever wins the round has both cards added to their deck and recieves a point. 
+
+    --- Whichever players deck reaches 0 the other is winner. 
+
+    --- The game ends when either player has all of the cards in the deck.
+    */
+   
     playRound() { 
         const card1 = this.player1.deck.shift();
         const card2 = this.player2.deck.shift();
@@ -120,6 +140,14 @@ class War {
             
         
     }
+    
+    /* playGame is initalized and the cards are dealt.
+
+    --- While their is no winner, the play round funtion will be run and when conditions of the if statement to declare 
+    a winner in playRound is met the console will print the winner and the total ammount of cards they hold.
+
+    */
+    
     playGame() { 
         this.dealCards();
 
